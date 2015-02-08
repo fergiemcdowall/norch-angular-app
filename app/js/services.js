@@ -2,9 +2,10 @@
 
 /* Services */
 
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var searchcatServices = angular.module('searchcatServices', ['ngResource']);
 
-phonecatServices.factory('Phone', ['$resource',
+searchcatServices.factory('Search', ['$resource',
   function($resource){
     return $resource('http://localhost:3030/search', {facets:'topics,places,organisations'});
   }]);
+

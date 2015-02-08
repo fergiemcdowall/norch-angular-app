@@ -9,18 +9,21 @@
         <option value="name">Alphabetical</option>
         <option value="age">Newest</option>
       </select>
-
+      
+      <ul>
+      </ul>
+      
     </div>
     <div class="col-md-10">
       <!--Body content-->
 
-      <ul class="phones">
-        <li ng-repeat="phone in phones.hits"
-            class="thumbnail phone-listing">
-          <p>{{phone.document.title}}</p>
-          <p>{{phone.document.date}}</p>
-          <p>{{phone.document.id}}</p>
-          <p>{{phone.document.teaser}}</p>
+      <ul class="searches">
+        <li ng-repeat="search in searches.hits"
+            class="thumbnail search-listing">
+          <p>{{search.document.title}}</p>
+          <p>{{search.document.date}}</p>
+          <p>{{search.document.id}}</p>
+          <p>{{search.document.teaser}}</p>
         </li>
       </ul>
 

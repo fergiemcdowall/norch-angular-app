@@ -2,27 +2,26 @@
 
 /* App Module */
 
-var phonecatApp = angular.module('phonecatApp', [
+var searchcatApp = angular.module('searchcatApp', [
   'ngRoute',
-  'phonecatAnimations',
-
-  'phonecatControllers',
-  'phonecatFilters',
-  'phonecatServices'
+  'searchcatAnimations',
+  'searchcatControllers',
+  'searchcatFilters',
+  'searchcatServices'
 ]);
 
-phonecatApp.config(['$routeProvider',
+searchcatApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
+      when('/search', {
+        templateUrl: 'partials/search-list.html',
+        controller: 'SearchListCtrl'
       }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
+      when('/search/:searchId', {
+        templateUrl: 'partials/search-detail.html',
+        controller: 'SearchDetailCtrl'
       }).
       otherwise({
-        redirectTo: '/phones'
+        redirectTo: '/search'
       });
   }]);
