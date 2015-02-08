@@ -4,22 +4,30 @@
       <!--Sidebar content-->
 
       Search: <input ng-model="searchTerm">
-      Sort by:
-      <select ng-model="orderProp">
-        <option value="name">Alphabetical</option>
-        <option value="age">Newest</option>
-      </select>
-      
+
       <ul>
         <li ng-repeat="match in matches">{{match}}</li>
       </ul>
-      
+
+      <div ng-repeat="(facetGroupTitle, facetGroup) in searchresult.facets">
+        <b>{{facetGroupTitle}}</b>
+        <ul class="list-unstyled">
+          <li ng-repeat="pair in facetGroup">
+            <a ng-href="{{baseurl}}&filter[{{facetGroupTitle}}]={{pair.key}}">{{pair.key}} ({{pair.value}})</a>
+          </li>
+        </ul>
+      </div>
+
+      </p>
+
     </div>
+
+
     <div class="col-md-10">
       <!--Body content-->
 
       <ul class="searches">
-        <li ng-repeat="search in searches.hits"
+        <li ng-repeat="search in searchresult.hits"
             class="thumbnail search-listing">
           <p>{{search.document.title}}</p>
           <p>{{search.document.date}}</p>

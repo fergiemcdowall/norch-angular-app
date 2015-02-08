@@ -4,11 +4,13 @@
 
 var searchcatControllers = angular.module('searchcatControllers', []);
 
-searchcatControllers.controller('SearchListCtrl', ['$scope', 'Search',
-  function($scope, Search) {
+searchcatControllers.controller('SearchListCtrl', ['$scope', '$location', 'Search',
+  function($scope, $location, Search) {
+    console.log($location.absUrl());
+    $scope.baseurl = $location.absUrl();
     $scope.$watch("searchTerm", function(){ 
       if ($scope.searchTerm) if ($scope.searchTerm.length > 2) {
-        $scope.searches = Search.srch.query({q: $scope.searchTerm});
+        $scope.searchresult = Search.srch.query({q: $scope.searchTerm});
         $scope.matches = Search.mtch.query({beginsWith: $scope.searchTerm});
       }
     })
