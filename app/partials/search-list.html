@@ -13,7 +13,7 @@
         <b>{{facetGroupTitle}}</b>
         <ul class="list-unstyled">
           <li ng-repeat="pair in facetGroup">
-            <a ng-href="{{baseurl}}&filter[{{facetGroupTitle}}]={{pair.key}}">{{pair.key}} ({{pair.value}})</a>
+            <a ng-href="{{baseurl}}&filter[{{facetGroupTitle}}][]={{pair.key}}">{{pair.key}} ({{pair.value}})</a>
           </li>
         </ul>
       </div>
