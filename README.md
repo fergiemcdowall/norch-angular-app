@@ -1,9 +1,9 @@
-# AngularJS Norch Application
+# The Norch-Angular app
 
 ## Overview
 
-This application is an example of a web-application for [Norch](https://github.com/fergiemcdowall/norch) using
-angular. The application is loosely based on the **Google Phone Gallery**, which no longer
+This application is an example of a web-application that speaks to and renders [Norch](https://github.com/fergiemcdowall/norch) using
+angular.js. The application is loosely based on the **Google Phone Gallery**, which no longer
 exists, the [Angular Phone Tutorial](https://docs.angularjs.org/tutorial/), and the [Angular-Seed Project](https://github.com/angular/angular-seed)
 
 ## Prerequisites
