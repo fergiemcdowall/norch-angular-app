@@ -1,9 +1,10 @@
 <div class="container-fluid">
+
   <div class="row">
     <div class="col-md-2">
       <!--Sidebar content-->
 
-      Search: <input ng-model="searchTerm">
+      <input ng-model="searchTerm">
 
       <ul>
         <li ng-repeat="match in matches">{{match}}</li>
@@ -13,7 +14,17 @@
         <b>{{facetGroupTitle}}</b>
         <ul class="list-unstyled">
           <li ng-repeat="pair in facetGroup">
-            <a ng-href="{{baseurl}}&filter[{{facetGroupTitle}}][]={{pair.key}}">{{pair.key}} ({{pair.value}})</a>
+            <a ng-hide="{{pair.active}}"
+               ng-href="{{getFilterUrl(facetGroupTitle, pair, searchresult.query.filter)}}">
+              {{pair.key}} ({{pair.value}})
+            </a>
+            <span ng-show="{{pair.active}}">
+              {{pair.key}} ({{pair.value}})
+              <a href="{{getUnFilterUrl(facetGroupTitle, pair)}}"
+                 style="color:#d9534f">
+                [remove]
+              </a>
+            </span>
           </li>
         </ul>
       </div>
