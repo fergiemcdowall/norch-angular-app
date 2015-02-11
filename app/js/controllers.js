@@ -2,20 +2,29 @@
 
 /* Controllers */
 
-var searchcatControllers = angular.module('searchcatControllers', []);
+var searchcatControllers = angular.module('searchcatControllers', ['ui.bootstrap']);
 
-searchcatControllers.controller('SearchListCtrl', ['$scope', '$location', 'Search',
-  function($scope, $location, Search) {
+searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$location', 'Search',
+  function($sce, $http, $scope, $location, Search) {
     var queryObject = $location.search();
     $scope.searchTerm = queryObject['q'] || '';
+
+
+    $scope.matcher = function(suggestion) {
+      return $http.get("http://localhost:3030/matcher?beginsWith=" + suggestion)
+        .then(function (response) {
+          return response.data;
+        });
+    };
 
 
     //watch the search box
     $scope.$watch("searchTerm", function(){ 
       if ($scope.searchTerm) if ($scope.searchTerm.length > 2) {
         queryObject['q'] = $scope.searchTerm;
+        queryObject['teaser'] = 'body';
         $scope.searchresult = Search.srch.query(queryObject);
-        $scope.matches = Search.mtch.query({beginsWith: $scope.searchTerm});
+//        $scope.matches = Search.mtch.query({beginsWith: $scope.searchTerm});
       }
     })
 
@@ -40,6 +49,9 @@ searchcatControllers.controller('SearchListCtrl', ['$scope', '$location', 'Searc
       ('&filter[' + facetGroupTitle + '][]=' + facetEntry.key, '');
     };
 
+    $scope.trustworthy = function(html) {
+      return $sce.trustAsHtml(html);
+    };
 
     $scope.orderProp = 'age';
   }]);

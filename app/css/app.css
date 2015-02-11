@@ -4,6 +4,10 @@ body {
   padding-top: 20px;
 }
 
+.sc-em {
+  font-weight: bold;
+  font-size: 150%;
+}
 
 .phone-images {
   background-color: white;

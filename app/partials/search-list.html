@@ -4,11 +4,11 @@
     <div class="col-md-2">
       <!--Sidebar content-->
 
-      <input ng-model="searchTerm">
+      <input type="text" ng-model="searchTerm"
+             typeahead="suggestion for suggestion in matcher($viewValue)"
+             typeahead-on-select="onSelect($item)">
 
-      <ul>
-        <li ng-repeat="match in matches">{{match}}</li>
-      </ul>
+      <br><br><br><br>
 
       <div ng-repeat="(facetGroupTitle, facetGroup) in searchresult.facets">
         <b>{{facetGroupTitle}}</b>
@@ -28,9 +28,6 @@
           </li>
         </ul>
       </div>
-
-      </p>
-
     </div>
 
 
@@ -40,10 +37,13 @@
       <ul class="searches">
         <li ng-repeat="search in searchresult.hits"
             class="thumbnail search-listing">
-          <p>{{search.document.title}}</p>
+<!--
+          <h5>{{search.document.title}}</h5>
           <p>{{search.document.date}}</p>
-          <p>{{search.document.id}}</p>
           <p>{{search.document.teaser}}</p>
+          <p ng-bind-html="trustworthy(search.document.teaser)"></p>
+-->
+          <pre>{{search.document}}</pre>
         </li>
       </ul>
 
