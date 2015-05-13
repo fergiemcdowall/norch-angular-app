@@ -23,7 +23,7 @@ exists, the [Angular Phone Tutorial](https://docs.angularjs.org/tutorial/), and 
 - Get [Norch](https://github.com/fergiemcdowall/norch)
 - Follow the intructions and set up a norch server on http://localhost:3030
 - Clone this reuters dataset: https://github.com/fergiemcdowall/reuters-21578-json
-- Index one or more files of reuters artcles from `reuters-21578-json/data/full`. You can do this by using the GUI in norch and navigating to the file on your PC, or by running `curl --form document=@reuters-000.json http://localhost:3030/indexer --form filterOn=places,topics,organisations` from the command line, or by investigating [Norch-Indexer](https://github.com/fergiemcdowall/norch-indexer)
+- Index one or more files of reuters artcles from `world-bank-projects-norchified.json`. You can do this by using the GUI in norch and navigating to the file on your PC, or by running `curl --form document=@world-bank-projects-norchified.json  http://localhost:3030/indexer --form filterOn=mjtheme,totalamt` from the command line, or by investigating [Norch-Indexer](https://github.com/fergiemcdowall/norch-indexer)
 
 
 ## Workings of the application
