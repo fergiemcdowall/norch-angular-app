@@ -7,7 +7,12 @@ var searchcatControllers = angular.module('searchcatControllers', ['ui.bootstrap
 searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$location', 'Search',
   function($sce, $http, $scope, $location, Search) {
     var queryObject = $location.search();
-    $scope.searchTerm = queryObject['q'] || '';
+    var queryString = "";
+    $scope.searchresult = Search.srch.query($location.search());
+    try {
+      queryString = JSON.parse(queryObject['JSONq'])['query']['*']
+    } catch(e){}
+    $scope.searchTerm = queryString;
 
 
     $scope.matcher = function(suggestion) {
@@ -21,32 +26,52 @@ searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$
     //watch the search box
     $scope.$watch("searchTerm", function(){ 
       if ($scope.searchTerm) if ($scope.searchTerm.length > 2) {
-        queryObject['q'] = $scope.searchTerm;
-        queryObject['teaser'] = 'body';
+//something like
+//http://localhost:3030/search?JSONq={"query":{"*":["ethiopia"]},%20"facets":{"mjtheme":{}}}
+        var JSONq = {};
+        JSONq['query'] = {};
+        JSONq['query']['*'] = $scope.searchTerm.split(' ');
+        JSONq['facets'] = {};
+        JSONq['facets']['mjtheme'] = {};
+        JSONq['facets']['totalamt'] =
+          {"ranges":[
+            ["000000000000001", "000000100000000"],
+            ["000000100000001", "000000250000000"],
+            ["000000250000001", "000000500000000"],
+            ["000000500000001", "100000000000000"]
+          ]};
+        queryObject['JSONq'] = JSON.stringify(JSONq);
         $scope.searchresult = Search.srch.query(queryObject);
-//        $scope.matches = Search.mtch.query({beginsWith: $scope.searchTerm});
       }
     })
 
 
     //for the facet/filter links
-    $scope.getFilterUrl = function(facetGroupTitle, facetEntry, filters) {
-      var url = '/app/#/search?q=' 
-        + $scope.searchTerm
-        + '&filter[' + facetGroupTitle + '][]=' + facetEntry.key;
-      for (var filterCat in filters) {
-        for (var i in filters[filterCat]) {
-          url += '&filter[' + filterCat + '][]=' + filters[filterCat][i];
-        }
-      }
+    $scope.getFilterUrl = function(facetGroup, facetEntry, lastQuery) {
+      var newQuery = JSON.parse(JSON.stringify(lastQuery));
+      if (!newQuery.filter) newQuery.filter = {};
+      if (!newQuery.filter[facetGroup.key]) newQuery.filter[facetGroup.key] = [];
+      newQuery.filter[facetGroup.key].push([facetEntry.gte, facetEntry.lte]);
+      var url = '/app/#/search?JSONq=' + JSON.stringify(newQuery);
       return url;
     };
 
 
     //for the [remove] links
-    $scope.getUnFilterUrl = function(facetGroupTitle, facetEntry) {
-      return unescape($location.absUrl()).replace
-      ('&filter[' + facetGroupTitle + '][]=' + facetEntry.key, '');
+    $scope.getUnFilterUrl = function(facetGroup, facetEntry, lastQuery) {
+      var newQuery = JSON.parse(JSON.stringify(lastQuery));
+      for (var i in newQuery.filter[facetGroup.key]) {
+        var thisFilter = newQuery.filter[facetGroup.key][i];
+        if ((thisFilter[0] == facetEntry.gte) && (thisFilter[1] == facetEntry.lte)) {
+          newQuery.filter[facetGroup.key].splice(i, 1);
+          continue;
+        }
+      }
+      if ((newQuery.filter[facetGroup.key]).length == 0) delete newQuery.filter[facetGroup.key];
+      if (Object.keys(newQuery.filter).length == 0) delete newQuery.filter;
+      //
+      var url = '/app/#/search?JSONq=' + JSON.stringify(newQuery);
+      return url;
     };
 
     $scope.trustworthy = function(html) {

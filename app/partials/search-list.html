@@ -4,23 +4,23 @@
     <div class="col-md-2">
       <!--Sidebar content-->
 
-      <input type="text" ng-model="searchTerm"
+      <input type="text" ng-model="searchTerm" class="input-lg"
              typeahead="suggestion for suggestion in matcher($viewValue)"
              typeahead-on-select="onSelect($item)">
 
       <br><br><br><br>
 
-      <div ng-repeat="(facetGroupTitle, facetGroup) in searchresult.facets">
-        <b>{{facetGroupTitle}}</b>
+      <div ng-repeat="facetGroup in searchresult.facets">
+        <b>{{facetGroup.key}}</b>
         <ul class="list-unstyled">
-          <li ng-repeat="pair in facetGroup">
+          <li ng-repeat="pair in facetGroup.value">
             <a ng-hide="{{pair.active}}"
-               ng-href="{{getFilterUrl(facetGroupTitle, pair, searchresult.query.filter)}}">
+               ng-href="{{getFilterUrl(facetGroup, pair, searchresult.query)}}">
               {{pair.key}} ({{pair.value}})
             </a>
-            <span ng-show="{{pair.active}}">
+            <span ng-if="pair.active == true">
               {{pair.key}} ({{pair.value}})
-              <a href="{{getUnFilterUrl(facetGroupTitle, pair)}}"
+              <a href="{{getUnFilterUrl(facetGroup, pair, searchresult.query)}}"
                  style="color:#d9534f">
                 [remove]
               </a>
@@ -38,10 +38,9 @@
         <li ng-repeat="search in searchresult.hits"
             class="thumbnail search-listing">
 <!--
-          <h5>{{search.document.title}}</h5>
-          <p>{{search.document.date}}</p>
-          <p>{{search.document.teaser}}</p>
-          <p ng-bind-html="trustworthy(search.document.teaser)"></p>
+          <h5>{{search.document.docty}}</h5>
+          <p>{{search.document.borrower}}</p>
+          <p>{{search.document.approvalfy}}</p>
 -->
           <pre>{{search.document}}</pre>
         </li>
@@ -50,3 +49,4 @@
     </div>
   </div>
 </div>
+

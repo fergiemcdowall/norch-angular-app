@@ -17,10 +17,6 @@ searchcatApp.config(['$routeProvider',
         templateUrl: 'partials/search-list.html',
         controller: 'SearchListCtrl'
       }).
-      when('/search/:searchId', {
-        templateUrl: 'partials/search-detail.html',
-        controller: 'SearchDetailCtrl'
-      }).
       otherwise({
         redirectTo: '/search'
       });
