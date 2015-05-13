@@ -6,6 +6,8 @@ This application is an example of a web-application that speaks to and renders [
 angular.js. The application is loosely based on the **Google Phone Gallery**, which no longer
 exists, the [Angular Phone Tutorial](https://docs.angularjs.org/tutorial/), and the [Angular-Seed Project](https://github.com/angular/angular-seed)
 
+You need to set up a remote norch in order for this app to work- see 'Norch' section below.
+
 ## Prerequisites
 
 ### Git
