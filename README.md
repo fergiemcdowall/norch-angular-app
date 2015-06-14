@@ -41,13 +41,20 @@ You need to set up a remote norch in order for this app to work- see 'Norch' sec
 
 The following docs describe how you can test and develop further this application.
 
+### Get the code
+
+The easiest way is to just get the code with `git clone`:
+```
+git clone git@github.com:fergiemcdowall/norch-angular-app.git
+```
 
 ### Installing dependencies
 
 The application relies upon various node.js tools, such as Bower, Karma and Protractor.  You can
-install these by running:
+install these by doing:
 
 ```
+cd ./norch-angular-app
 npm install
 ```
 
