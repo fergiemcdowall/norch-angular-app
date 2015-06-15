@@ -26,6 +26,7 @@ You need to set up a remote norch in order for this app to work- see 'Norch' sec
 - Follow the intructions and set up a norch server on http://localhost:3030
 - Clone this reuters dataset: https://github.com/fergiemcdowall/reuters-21578-json
 - Index one or more files of reuters artcles from `world-bank-projects-norchified.json`. You can do this by using the GUI in norch and navigating to the file on your PC, or by running `curl --form document=@world-bank-projects-norchified.json  http://localhost:3030/indexer --form filterOn=mjtheme,totalamt` from the command line, or by investigating [Norch-Indexer](https://github.com/fergiemcdowall/norch-indexer)
+- If you are experiencing problems with Access-Control-Allow-Origin start norch with a cors header like so: `./node_modules/norch/bin/norch -c http://localhost:8000`
 
 
 ## Workings of the application
