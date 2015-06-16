@@ -42,13 +42,21 @@ You need to set up a remote norch in order for this app to work- see 'Norch' sec
 
 The following docs describe how you can test and develop further this application.
 
+### Get the code
+
+The easiest way is to just get the code with `git clone`:
+```
+git clone git@github.com:fergiemcdowall/norch-angular-app.git
+```
+
 
 ### Installing dependencies
 
 The application relies upon various node.js tools, such as Bower, Karma and Protractor.  You can
-install these by running:
+install these by doing:
 
 ```
+cd ./norch-angular-app
 npm install
 ```
 
@@ -138,5 +146,5 @@ Requires a webserver that serves the application. See Running the app during dev
 [$resource]: http://docs.angularjs.org/api/ngResource/service/$resource
 [$route]: http://docs.angularjs.org/api/ngRoute/service/$route
 [protractor]: https://github.com/angular/protractor
-[jasmine]: http://pivotal.github.com/jasmine/
+[jasmine]: http://jasmine.github.io/
 [karma]: http://karma-runner.github.io
