@@ -16,7 +16,7 @@ searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$
 
 
     $scope.matcher = function(suggestion) {
-      return $http.get('http://localhost:3030/matcher?match={"beginsWith":"' + suggestion + '"}')
+      return $http.get('http://localhost:3030/matcher?match={"beginsWith":' + JSON.stringify(suggestion) + '}')
         .then(function (response) {
           return response.data;
         });
