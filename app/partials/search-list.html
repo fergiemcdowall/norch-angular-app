@@ -10,10 +10,10 @@
 
       <br><br><br><br>
 
-      <div ng-repeat="facetGroup in searchresult.facets">
+      <div ng-repeat="facetGroup in searchresult.facets track by $index">
         <b>{{facetGroup.key}}</b>
         <ul class="list-unstyled">
-          <li ng-repeat="pair in facetGroup.value">
+          <li ng-repeat="pair in facetGroup.value track by $index">
             <a ng-hide="{{pair.active}}"
                ng-href="{{getFilterUrl(facetGroup, pair, searchresult.query)}}">
               {{pair.key}} ({{pair.value}})
@@ -35,7 +35,7 @@
       <!--Body content-->
 
       <ul class="searches">
-        <li ng-repeat="search in searchresult.hits"
+        <li ng-repeat="search in searchresult.hits track by $index"
             class="thumbnail search-listing">
 <!--
           <h5>{{search.document.docty}}</h5>
