@@ -12,7 +12,8 @@ searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$
       auth.login($scope.username, $scope.password)
         .then(function (res) {
           if (res == true) {
-            $('#login').hide()
+            $('#login').hide();
+            $('#search').show();
           }
         });
     }
@@ -20,7 +21,11 @@ searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$
     var userData = JSON.parse(localStorage.getItem('userData'));
     if (userData && userData.loggedIn == true && Date.now() - userData.timestamp < 30*60*1000) {
       console.log('already logged in');
-      $('#login').hide()
+      $('#login').hide();
+      $('#search').show();
+    } else {
+      $('#search').hide()
+      $('#login').show();
     }
 
     var queryObject = $location.search();
