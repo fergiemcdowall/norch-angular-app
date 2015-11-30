@@ -4,8 +4,25 @@
 
 var searchcatControllers = angular.module('searchcatControllers', ['ui.bootstrap']);
 
-searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$location', 'Search',
-  function($sce, $http, $scope, $location, Search) {
+searchcatControllers.controller('SearchListCtrl', ['$sce', '$http', '$scope', '$location', 'Search', 'auth',
+  function($sce, $http, $scope, $location, Search, auth) {
+    $scope.username = null;
+    $scope.password = null;
+    $scope.login = function () {
+      auth.login($scope.username, $scope.password)
+        .then(function (res) {
+          if (res == true) {
+            $('#login').hide()
+          }
+        });
+    }
+
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData && userData.loggedIn == true && Date.now() - userData.timestamp < 30*60*1000) {
+      console.log('already logged in');
+      $('#login').hide()
+    }
+
     var queryObject = $location.search();
     var queryString = "";
     $scope.searchresult = Search.srch.query($location.search());
